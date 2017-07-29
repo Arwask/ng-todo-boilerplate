@@ -15,6 +15,16 @@ todoApp.factory("TodoFactory", function($q, $http, FirebaseUrl) {
 		});
 	};
 
+    let getOneItem = (dbId) => {
+        return $q( (resolve, reject) => {
+            $http.get(`${FirebaseUrl}todos/${dbId}.json`)
+            .then( (oneItem) => {
+                console.log("oneItem requested: ",oneItem.data);
+                resolve(oneItem.data);
+            });
+        });
+    };
+
     let postNewItem = (newItem) => {
         return $q( (resolve, reject) => {
             $http.post(`${FirebaseUrl}todos.json`, 
@@ -61,5 +71,5 @@ todoApp.factory("TodoFactory", function($q, $http, FirebaseUrl) {
             }
         });
     };
-	return { getTodoList, postNewItem, deleteTodoItem, updateTaskStatus};
+	return { getTodoList, postNewItem, deleteTodoItem, updateTaskStatus, getOneItem};
 });

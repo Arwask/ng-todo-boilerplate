@@ -1,0 +1,13 @@
+<div>
+    <div>Task: {{data.task}}</div>
+    <div>Due Date: {{data.dueDate}}</div>
+    <div>Assigned To: {{data.assignedTo}}</div>
+    <div>Location: {{data.location}}</div>
+    <div>Urgency: {{data.urgency}}</div>
+    <div>Dependencies: {{data.dependencies}}</div>
+    <div ng-model="data.isCompleted">Completed: 
+        <span ng-show="data.isCompleted">Yes</span>
+        <span ng-hide="data.isCompleted">No</span>
+    </div>
+    <div><button type="button" ng-click="editTask(data.id)">Edit</button></div>
+</div>

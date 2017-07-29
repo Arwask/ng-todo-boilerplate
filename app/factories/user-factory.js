@@ -9,18 +9,22 @@ todoApp.factory("UserFactory", function($q, $http, FirebaseUrl, FBCreds) {
 	firebase.initializeApp(config);
 
 	let currentUser = null;
-
-	firebase.auth().onAuthStateChanged( (user) => {
-		if(user) {
-			currentUser = user.uid;
-			console.log("currentUser", currentUser );
-			// return currentUser;
-		}
-		else { //on logout we need to set it back to null.
-			currentUser = null;
-		}
-
-	});
+    let isAuthenticated = () => {
+        return $q( (resolve, reject) => {
+        	firebase.auth().onAuthStateChanged( (user) => {
+        		if(user) {
+        			currentUser = user.uid;
+        			console.log("currentUser", currentUser );
+        			// return currentUser;
+                    resolve(true);
+        		}
+        		else { //on logout we need to set it back to null.
+        			currentUser = null;
+                    resolve(false);
+        		}
+            });
+        });
+    };
 
 	let getUser = () => {
 		return currentUser;
@@ -53,5 +57,5 @@ todoApp.factory("UserFactory", function($q, $http, FirebaseUrl, FBCreds) {
 		});
 	};
 	// console.log("firebase", currentUser);
-	return {createUser, loginUser, logoutUser, getUser};
+	return {createUser, loginUser, logoutUser, getUser, isAuthenticated};
 });
