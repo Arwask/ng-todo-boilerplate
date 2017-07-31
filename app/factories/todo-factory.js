@@ -40,8 +40,9 @@ todoApp.factory("TodoFactory", function($q, $http, FirebaseUrl) {
 
 	let updateTaskStatus = (todo) => {
 		// PUT the entire obj to FB
+        console.log("inside update");
         return $q( (resolve, reject) => {
-    		let itemId = todo.id;
+            let itemId = todo.id;
             if(itemId) {
                 $http.put(`${FirebaseUrl}todos/${itemId}.json`,
                     angular.toJson(todo))

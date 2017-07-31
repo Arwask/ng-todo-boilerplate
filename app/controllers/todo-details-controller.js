@@ -8,7 +8,7 @@ todoApp.controller('TodoDetailsController',function($scope, $routeParams, $windo
     });
 
     $scope.editTask = (dbId) => {
-        console.log("edit button clicked", dbId);
-        $window.location.href = `#!/todo/edit/${dbId}`;
+        console.log("edit button clicked", $routeParams.dbId);
+        $window.location.href = `#!/todo/edit/${$routeParams.dbId}`;
     };
 });
